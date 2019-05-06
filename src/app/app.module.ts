@@ -8,6 +8,9 @@ import { BookListComponent } from './book-list/book-list.component';
 import { SingleBookComponent } from './book-list/single-book/single-book.component';
 import { BookFormComponent } from './book-list/book-form/book-form.component';
 import { HeaderComponent } from './header/header.component';
+import {AuthService} from './services/auth.service';
+import {BooksService} from './services/books.service';
+import {AuthGuardService} from './services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,11 @@ import { HeaderComponent } from './header/header.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    BooksService,
+    AuthGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
