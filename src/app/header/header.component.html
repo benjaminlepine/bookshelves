@@ -1,3 +1,20 @@
-<p>
-  header works!
-</p>
+<nav class=" navbar-default">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li routerLinkActive="active">
+        <a routerLink="books">Livres</a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li routerLinkActive="active" *ngIf="!isAuth">
+        <a routerLink="auth/signup">S'inscrire</a>
+      </li>
+      <li routerLinkActive="active" *ngIf="!isAuth">
+        <a routerLink="auth/signin">Connexion</a>
+      </li>
+      <li *ngIf="isAuth">
+        <a (click)="onSignOut()" style="cursor:pointer">Déconnexion</a>
+      </li>
+    </ul>
+  </div>
+</nav>

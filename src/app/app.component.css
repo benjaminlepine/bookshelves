@@ -3,11 +3,12 @@
 }
 
 #coaching-title{
-  font-size: 70px;
+  font-size: 40px;
   font-weight: bold;
   color: #002F87 ;
 }
 
 .logo{
-  width: 40%;
+  width: 400px;
+  margin-bottom: 15px;
 }
