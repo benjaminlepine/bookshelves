@@ -8,8 +8,8 @@ import * as firebase from 'firebase';
 })
 export class AppComponent {
   title = 'My Bookshelves';
-  constructor(){
-    var firebaseConfig = {
+  constructor() {
+    const firebaseConfig = {
       apiKey: "AIzaSyCJT7Hdn1s__7xq30ZaNKUCUYhVAUDb8O4",
       authDomain: "bookshelves-30f59.firebaseapp.com",
       databaseURL: "https://bookshelves-30f59.firebaseio.com",
