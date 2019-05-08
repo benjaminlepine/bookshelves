@@ -3,9 +3,6 @@ import {Subject} from 'rxjs/Rx';
 import { Book } from '../models/Book.model';
 import * as firebase from 'firebase';
 
-// @Injectable({
-//   providedIn: 'root'
-// })
 @Injectable()
 export class BooksService {
   books: Book[] = [];
@@ -34,6 +31,7 @@ export class BooksService {
       (resolve, reject) => {
         firebase.database().ref('/books/' + id).once('value').then(
           (data) => {
+            console.log('data.val = ', data.val);
             resolve(data.val());
           }, (error) => {
             reject(error);
@@ -50,6 +48,18 @@ export class BooksService {
   }
 
   removeBook(book: Book) {
+    if (book.photo) {
+      const storageRef = firebase.storage().refFromURL(book.photo);
+      storageRef.delete().then(
+        () => {
+          console.log('Photo supprimée !');
+        }
+      ).catch(
+        (error) => {
+          console.log('Fichier non trouvée : ' + error);
+        }
+      );
+    }
     const bookIndexToRemove = this.books.findIndex(
       (bookEl) => {
         if (bookEl === book) {
@@ -60,5 +70,31 @@ export class BooksService {
     this.books.splice(bookIndexToRemove, 1);
     this.saveBooks();
     this.emitBooks();
+  }
+
+  uploadFile(file: File) {
+    return new Promise(
+      (resolve, reject) => {
+        const almostUniqueFileName = Date.now().toString();
+        const upload = firebase.storage().ref()
+          .child('images/' + almostUniqueFileName + file.name)
+          .put(file);
+        console.log('upload = ', upload);
+        upload.on(firebase.storage.TaskEvent.STATE_CHANGED,
+          () => {
+            console.log('Chargement…');
+          },
+          (error) => {
+            console.log('Erreur de chargement ! : ' + error);
+            reject();
+          },
+          () => {
+            console.log('upload.location_.path_ = ', upload.location_.path_);
+            // resolve(upload.snapshot.downloadURL);
+            resolve(upload.location_.path_);
+          }
+        );
+      }
+    );
   }
 }
