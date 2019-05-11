@@ -89,9 +89,9 @@ export class BooksService {
             reject();
           },
           () => {
-            console.log('upload.location_.path_ = ', upload.location_.path_);
+            // console.log('upload = ', upload);
             // resolve(upload.snapshot.downloadURL);
-            resolve(upload.location_.path_);
+            resolve(upload["location_"]["path_"]);
           }
         );
       }

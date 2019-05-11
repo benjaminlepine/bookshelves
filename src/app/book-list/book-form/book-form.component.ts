@@ -13,10 +13,10 @@ import * as firebase from 'firebase';
 export class BookFormComponent implements OnInit {
 
   bookForm: FormGroup;
-  fileIsUploading: false;
+  fileIsUploading: boolean =  false;
   fileUrl: string;
   filePath: string;
-  fileUploaded: false;
+  fileUploaded: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private booksService: BooksService,
